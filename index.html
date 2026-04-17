@@ -414,7 +414,10 @@
             color: white;
             transition: all 0.25s;
             border: 1px solid transparent;
+            cursor: pointer;
+            font-family: inherit;
         }
+        .live-active { box-shadow: 0 0 16px rgba(255,255,255,0.15); transform: scale(1.05); }
         .live-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.3); }
         .live-aljazeera { background: rgba(255, 193, 7, 0.15); color: #ffc107; border-color: rgba(255, 193, 7, 0.3); }
         .live-aljazeera:hover { background: rgba(255, 193, 7, 0.25); }
@@ -649,49 +652,43 @@
     </div>
     <div class="video-grid">
         <div class="video-card">
-            <iframe src="https://www.youtube.com/embed/live_stream?channel=UCfiwzLy-8yKzIbsmZTzxDgw" title="Al Jazeera" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
-            <div class="video-info">
-                <span class="source-badge source-aljazeera">الجزيرة</span>
-                <h4>نشرة أخبار الشرق الأوسط</h4>
+            <div style="position:relative;width:100%;aspect-ratio:16/9">
+                <iframe id="videoPlayer" src="https://www.youtube.com/embed/live_stream?channel=UCfiwzLy-8yKzIbsmZTzxDgw" title="Al Jazeera" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy" style="width:100%;height:100%;border:none"></iframe>
+            </div>
+            <div class="video-info" style="flex-direction:column;align-items:flex-start;gap:8px">
+                <div style="display:flex;gap:8px;flex-wrap:wrap">
+                    <button onclick="switchVideo('UCfiwzLy-8yKzIbsmZTzxDgw', this)" class="live-btn live-aljazeera" style="padding:6px 14px;font-size:11px">الجزيرة</button>
+                    <button onclick="switchVideo('UC4LYR3v6kOIgEjrVARODP3w', this)" class="live-btn live-i24" style="padding:6px 14px;font-size:11px">i24NEWS</button>
+                    <button onclick="switchVideo('UCelk6aHijZq-GJBBB9YpReA', this)" class="live-btn live-bbc" style="padding:6px 14px;font-size:11px">BBC عربي</button>
+                </div>
+                <h4 id="videoLabel">نشرة أخبار الشرق الأوسط</h4>
             </div>
         </div>
         <div class="video-card">
-            <iframe src="https://www.youtube.com/embed/live_stream?channel=UC4LYR3v6kOIgEjrVARODP3w" title="i24NEWS" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
-            <div class="video-info">
-                <span class="source-badge source-i24">i24NEWS</span>
-                <h4>آخر المستجدات من المنطقة</h4>
+            <div style="position:relative;width:100%;aspect-ratio:16/9">
+                <iframe id="videoPlayer2" src="https://www.youtube.com/embed/live_stream?channel=UCIJXOvggjKtCagMfxvcCzAA" title="Sky News Arabia" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy" style="width:100%;height:100%;border:none"></iframe>
             </div>
-        </div>
-        <div class="video-card">
-            <iframe src="https://www.youtube.com/embed/live_stream?channel=UCelk6aHijZq-GJBBB9YpReA" title="BBC Arabic" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
-            <div class="video-info">
-                <span class="source-badge source-bbc">BBC عربي</span>
-                <h4>نشرة بي بي سي العربية</h4>
+            <div class="video-info" style="flex-direction:column;align-items:flex-start;gap:8px">
+                <div style="display:flex;gap:8px;flex-wrap:wrap">
+                    <button onclick="switchVideo2('UCIJXOvggjKtCagMfxvcCzAA', this)" class="live-btn live-sky" style="padding:6px 14px;font-size:11px">سكاي نيوز</button>
+                    <button onclick="switchVideo2('UCfiwzLy-8yKzIbsmZTzxDgw', this)" class="live-btn live-aljazeera" style="padding:6px 14px;font-size:11px">الجزيرة 2</button>
+                </div>
+                <h4 id="videoLabel2">بث مباشر - سكاي نيوز عربية</h4>
             </div>
         </div>
     </div>
     <div class="live-channels" id="liveChannels">
         <h3>🔴 بث مباشر | Live Channels</h3>
         <div class="live-buttons" style="margin-bottom:20px">
-            <a href="https://www.youtube.com/@aljazeera/live" target="_blank" class="live-btn live-aljazeera">الجزيرة مباشر ▶</a>
-            <a href="https://www.youtube.com/@i24NEWS_AR/live" target="_blank" class="live-btn live-i24">i24NEWS مباشر ▶</a>
-            <a href="https://www.youtube.com/@BBCNewsArabic/live" target="_blank" class="live-btn live-bbc">BBC عربي مباشر ▶</a>
-            <a href="https://www.youtube.com/@SkyNewsArabia/live" target="_blank" class="live-btn live-sky">سكاي نيوز مباشر ▶</a>
+            <button onclick="switchLive('UCfiwzLy-8yKzIbsmZTzxDgw', this)" class="live-btn live-aljazeera live-active">الجزيرة</button>
+            <button onclick="switchLive('UC4LYR3v6kOIgEjrVARODP3w', this)" class="live-btn live-i24">i24NEWS</button>
+            <button onclick="switchLive('UCelk6aHijZq-GJBBB9YpReA', this)" class="live-btn live-bbc">BBC عربي</button>
+            <button onclick="switchLive('UCIJXOvggjKtCagMfxvcCzAA', this)" class="live-btn live-sky">سكاي نيوز</button>
         </div>
-        <div class="video-grid" style="margin-bottom:0">
-            <div class="video-card">
-                <iframe src="https://www.youtube.com/embed/live_stream?channel=UCfiwzLy-8yKzIbsmZTzxDgw" title="Al Jazeera Live" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
-                <div class="video-info"><span class="source-badge source-aljazeera">الجزيرة</span><h4>بث مباشر</h4></div>
-            </div>
-            <div class="video-card">
-                <iframe src="https://www.youtube.com/embed/live_stream?channel=UC4LYR3v6kOIgEjrVARODP3w" title="i24NEWS Live" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
-                <div class="video-info"><span class="source-badge source-i24">i24NEWS</span><h4>بث مباشر</h4></div>
-            </div>
-            <div class="video-card">
-                <iframe src="https://www.youtube.com/embed/live_stream?channel=UCIJXOvggjKtCagMfxvcCzAA" title="Sky News Arabia Live" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
-                <div class="video-info"><span class="source-badge" style="background:rgba(0,118,214,0.12);color:#4da6ff;border:1px solid rgba(0,118,214,0.2)">سكاي نيوز</span><h4>بث مباشر</h4></div>
-            </div>
+        <div style="position:relative;width:100%;max-width:800px;margin:0 auto;aspect-ratio:16/9;border-radius:12px;overflow:hidden;border:1px solid var(--border)">
+            <iframe id="livePlayer" src="https://www.youtube.com/embed/live_stream?channel=UCfiwzLy-8yKzIbsmZTzxDgw" title="Live Stream" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="width:100%;height:100%;border:none"></iframe>
         </div>
+        <p style="margin-top:10px;font-size:11px;color:var(--text-dim)">إذا لم يظهر البث المباشر، اضغط على اسم القناة لفتحها على يوتيوب</p>
     </div>
 
     <!-- Ad -->
@@ -1058,6 +1055,38 @@ function setDate() {
     const days = ['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
     document.getElementById('currentDate').textContent =
         `${days[now.getDay()]}، ${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()}`;
+}
+
+// ============================================
+// LIVE CHANNEL SWITCHER
+// ============================================
+function switchLive(channelId, btn) {
+    document.getElementById('livePlayer').src = 'https://www.youtube.com/embed/live_stream?channel=' + channelId;
+    document.querySelectorAll('.live-buttons .live-btn').forEach(b => b.classList.remove('live-active'));
+    btn.classList.add('live-active');
+}
+
+var videoLabels = {
+    'UCfiwzLy-8yKzIbsmZTzxDgw': 'نشرة أخبار الشرق الأوسط',
+    'UC4LYR3v6kOIgEjrVARODP3w': 'آخر المستجدات من المنطقة',
+    'UCelk6aHijZq-GJBBB9YpReA': 'نشرة بي بي سي العربية',
+    'UCIJXOvggjKtCagMfxvcCzAA': 'بث مباشر - سكاي نيوز عربية'
+};
+
+function switchVideo(channelId, btn) {
+    document.getElementById('videoPlayer').src = 'https://www.youtube.com/embed/live_stream?channel=' + channelId;
+    document.getElementById('videoLabel').textContent = videoLabels[channelId] || 'بث مباشر';
+    var parent = btn.closest('.video-info');
+    parent.querySelectorAll('.live-btn').forEach(b => b.classList.remove('live-active'));
+    btn.classList.add('live-active');
+}
+
+function switchVideo2(channelId, btn) {
+    document.getElementById('videoPlayer2').src = 'https://www.youtube.com/embed/live_stream?channel=' + channelId;
+    document.getElementById('videoLabel2').textContent = videoLabels[channelId] || 'بث مباشر';
+    var parent = btn.closest('.video-info');
+    parent.querySelectorAll('.live-btn').forEach(b => b.classList.remove('live-active'));
+    btn.classList.add('live-active');
 }
 
 // ============================================
