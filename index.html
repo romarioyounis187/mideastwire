@@ -30,6 +30,7 @@
             --blue: #457b9d;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { overflow-x: hidden; }
         body {
             font-family: 'Noto Sans Arabic', 'Inter', -apple-system, sans-serif;
             background: var(--bg);
@@ -64,6 +65,8 @@
             position: sticky;
             top: 0;
             z-index: 100;
+            width: 100%;
+            box-sizing: border-box;
         }
         .header-inner {
             max-width: 1320px;
@@ -155,6 +158,7 @@
             animation: scroll 45s linear infinite;
             font-size: 14px;
             color: var(--text-muted);
+            max-width: 100%;
         }
         .ticker-content span { margin-left: 60px; }
         .ticker-content span::before {
@@ -339,6 +343,11 @@
             padding: 16px;
             min-height: 100px;
             margin-bottom: 24px;
+            max-width: 100%;
+            overflow: hidden;
+        }
+        .ad-slot iframe {
+            max-width: 100% !important;
         }
 
         /* Sidebar Layout */
