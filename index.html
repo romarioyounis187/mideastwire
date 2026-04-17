@@ -404,6 +404,12 @@
         .live-bbc { background: #bb1919; }
         .live-sky { background: #0076d6; }
 
+        /* Push Adsterra Social Bar to bottom */
+        [id*="adzilla"], [class*="adzilla"], iframe[src*="adzilla"], div[style*="z-index: 2147483647"] {
+            top: auto !important;
+            bottom: 0 !important;
+        }
+
         /* Sidebar Layout */
         .content-with-sidebar {
             display: grid;
@@ -1039,6 +1045,21 @@ saveToHistory();
 document.getElementById('ad-leaderboard').innerHTML =
     '<script>atOptions = {\'key\':\'d9939c44f737e32805c73a60b966b9e0\',\'format\':\'iframe\',\'height\':90,\'width\':728,\'params\':{}}<\/script>' +
     '<script src="https://www.highperformanceformat.com/d9939c44f737e32805c73a60b966b9e0/invoke.js"><\/script>';
+
+// Move Adsterra social bar to bottom after it loads
+setTimeout(() => {
+    document.querySelectorAll('[style*="z-index: 2147483647"]').forEach(el => {
+        if (el.getBoundingClientRect().top < 100) {
+            el.style.top = 'auto';
+            el.style.bottom = '0';
+        }
+    });
+    // Also try by common Adsterra selectors
+    document.querySelectorAll('#adzilla-overlay, .adzilla-overlay, [id*="adzilla"]').forEach(el => {
+        el.style.top = 'auto';
+        el.style.bottom = '0';
+    });
+}, 3000);
 
 // Register Service Worker for PWA
 if ('serviceWorker' in navigator) {
